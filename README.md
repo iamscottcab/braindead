@@ -2,7 +2,7 @@
 A simple Go compiler for the [Brainf*ck](https://en.wikipedia.org/wiki/Brainfuck) esoteric language.
 
 ## ⚙️ Installation
-The easiest way to use this package is to install it with `go install github.com/iamscottcab/braindead`
+The easiest way to use this package is to install it with `go install github.com/iamscottcab/braindead@latest`
 
 Alternatively you can clone the repository and build it locally with `go build compiler.go`.
 
