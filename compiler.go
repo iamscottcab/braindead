@@ -21,6 +21,47 @@ type compilerState struct {
 	WritingComment bool
 }
 
+const t = `package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+)
+
+func main() {
+	var mem [{{.Mem}}]int
+	index := 0
+
+	reader := bufio.NewReader(os.Stdin)
+	_ = reader // Make sure this always compiles even if we never need the reader
+	_ = fmt.Printf // Make sure this always compiles even if we never need the writer
+
+{{.Body}}}
+
+func readChar(reader *bufio.Reader) int {
+	cr := '\r'
+	nl := '\n'
+
+	// Read the rune
+	r, _, _ := reader.ReadRune()
+
+	// If the consumed input was the carriage return or new line character then we are at the end of our input
+	if r == cr || r == nl {
+		// Make sure we clean up anything left (likely a new line if we got a carriage return)
+		consumeRemaining(reader)
+		return 0
+	}
+
+	return int(r)
+}
+
+func consumeRemaining(reader *bufio.Reader) {
+	for reader.Buffered() > 0 {
+		reader.ReadRune()
+	}
+}`
+
 func main() {
 	// Set CLI flags
 	inputFileLoc := flag.String("in", "", "The location of the input file, defaults to empty string. A file is required and will throw if not found")
@@ -48,14 +89,7 @@ func main() {
 		Body: res,
 	}
 
-	// Create the template and (try to) save
-	exec, err := os.Executable()
-	processError(err)
-
-	execPath := filepath.Dir(exec)
-	execPath = filepath.Join(execPath, "template")
-
-	template, err := template.ParseFiles(execPath)
+	template, err := template.New("template").Parse(t)
 	processError(err)
 
 	file, err := os.Create(*outputLoc)
