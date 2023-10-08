@@ -10,11 +10,11 @@ Alternatively you can clone the repository and build it locally with `go build c
 1. Write some [Brainf*ck](https://en.wikipedia.org/wiki/Brainfuck) and save it to a file
 2. Depending on your install method do one of the following:
 
-**Go Install:** `braindead -in="/path/to/file`
+**Go Install:** `braindead -in="/path/to/file"`
 
-**Local Clone & Build:** `` `./compiler.exe -in="/path/to/file`
+**Local Clone & Build:** `./compiler.exe -in="/path/to/file"`
 
-**Local Clone:** `` `go run compiler.go -in="/path/to/file`
+**Local Clone:** `go run compiler.go -in="/path/to/file"`
 
 ## 📝Configuration
 While the `in` flag is required you can also optionally set the output file path and the default number of memory locations that your BF program needs to run.
