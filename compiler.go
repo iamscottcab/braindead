@@ -49,11 +49,16 @@ func main() {
 	}
 
 	// Create the template and (try to) save
-	execPath, _ := os.Executable()
-	execPath = filepath.Join(execPath, "template")
-	template, _ := template.ParseFiles(execPath)
-	file, err := os.Create(*outputLoc)
+	exec, err := os.Executable()
+	processError(err)
 
+	execPath := filepath.Dir(exec)
+	execPath = filepath.Join(execPath, "template")
+
+	template, err := template.ParseFiles(execPath)
+	processError(err)
+
+	file, err := os.Create(*outputLoc)
 	processError(err)
 
 	template.Execute(file, d)
