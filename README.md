@@ -16,6 +16,8 @@ Alternatively you can clone the repository and build it locally with `go build c
 
 **Local Clone:** `go run compiler.go -in="/path/to/file"`
 
+You can then run your output file with either `go run /path/to/file` or by building `go build /path/to/file && ./path/to/file.exe`. 
+
 ## 📝Configuration
 While the `in` flag is required you can also optionally set the output file path and the default number of memory locations that your BF program needs to run.
 
