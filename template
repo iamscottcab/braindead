@@ -12,6 +12,7 @@ func main() {
 
 	reader := bufio.NewReader(os.Stdin)
 	_ = reader // Make sure this always compiles even if we never need the reader
+	_ = fmt.Printf // Make sure this always compiles even if we never need the writer
 
 {{.Body}}}
 
