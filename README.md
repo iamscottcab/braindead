@@ -45,7 +45,16 @@ But would interpret the following line as follows
 ```
 ++
 ```
+
+### Error Handling
+Because the BF syntax is relatively lightweight the compiler mostly just parses the file as is (sans white space considerations above). However the compiler will throw if it detects invalid loop combinations.
+
+`examples\closed-before-open.bf` will throw because a loop was closed without an associated open loop while `examples\open-loop-not-closed.bf` will throw because the loop was not closed before EoF. As open loops are counted during compilation this will handle nested loops for you
+
+## 🏃‍♀️ Runtime Semantics
 ### Input
+Input semantics seem to differ amongst BF compiler. Naively the spec says to just grab the next character. I wanted to strike a balance between simplicity while also having some intuitive feel. As a result when running a compiled BF program we don't blindly grab from `StdIn` in part because EoL tokens would be considered "characters". The following semantics apply as a result.
+
 The carriage return and new line characters `\r` and `\n` respectively denote the "end of input". If either is found then a zero result is returned.
 
 Take the BF program as described in `examples/cat.bf`.
